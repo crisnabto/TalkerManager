@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { getTalkers } = require('./utils/fsUtils');
 const { filterById } = require('./utils/filterById');
 const { generateToken } = require('./utils/generateToken');
+const { emailValidation, passwordValidation } = require('./middlewares/loginValidation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,7 +36,7 @@ app.get('/talker/:id', async (req, res) => {
 });
 
 // POST /login cadastra novo e-mail e senha e retorna token
-app.post('/login', async (req, res) => {
+app.post('/login', emailValidation, passwordValidation, async (req, res) => {
   const token = await generateToken();
   // console.log(token);
   return res.status(200).json({ token: `${token}` });
