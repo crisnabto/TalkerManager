@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 // Fs utils
 const { getTalkers } = require('./utils/fsUtils');
 const { filterById } = require('./utils/filterById');
+const { generateToken } = require('./utils/generateToken');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,10 +29,16 @@ app.get('/talker/:id', async (req, res) => {
   const talkers = await getTalkers();
   const talkerById = await filterById(talkers, Number(id));
   if (talkerById) {
-    res.status(200).json(talkerById);
-  } else {
-    res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
-  }
+    return res.status(200).json(talkerById);
+  } 
+  return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+});
+
+// POST /login cadastra novo e-mail e senha e retorna token
+app.post('/login', async (req, res) => {
+  const token = await generateToken();
+  // console.log(token);
+  return res.status(200).json({ token: `${token}` });
 });
 
 app.listen(PORT, () => {
