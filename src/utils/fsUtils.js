@@ -10,6 +10,15 @@ async function getTalkers() {
   }
 }
 
+async function saveTalker(updatedTalkers) {
+  try {
+    await fs.writeFile('src/talker.json', updatedTalkers);
+  } catch (error) {
+    return ({ message: error });
+  }
+}
+
 module.exports = {
   getTalkers,
+  saveTalker,
 };

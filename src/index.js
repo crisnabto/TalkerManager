@@ -6,6 +6,12 @@ const { getTalkers } = require('./utils/fsUtils');
 const { filterById } = require('./utils/filterById');
 const { generateToken } = require('./utils/generateToken');
 const { emailValidation, passwordValidation } = require('./middlewares/loginValidation');
+const { tokenValidation, 
+  nameValidation, 
+  ageValidation, 
+  talkValidation, 
+  rateValidation } = require('./middlewares/newTalkerValidation');
+const { updateTalkers } = require('./middlewares/updateTalkers');
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,6 +46,17 @@ app.post('/login', emailValidation, passwordValidation, async (req, res) => {
   const token = await generateToken();
   // console.log(token);
   return res.status(200).json({ token: `${token}` });
+});
+
+// POST /talker cadastra nova pessoa palestrante
+app.post('/talker',
+tokenValidation,
+nameValidation, 
+ageValidation, 
+talkValidation,
+rateValidation,
+updateTalkers,
+async (_req, _res) => {
 });
 
 app.listen(PORT, () => {
