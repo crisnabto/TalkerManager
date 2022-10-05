@@ -45,6 +45,7 @@ app.get('/talker/:id', async (req, res) => {
 app.post('/login', emailValidation, passwordValidation, async (req, res) => {
   const token = await generateToken();
   // console.log(token);
+  // console.log(token);
   return res.status(200).json({ token: `${token}` });
 });
 
