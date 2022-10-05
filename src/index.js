@@ -26,6 +26,16 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
+// GET talker/search retorna pesquisa por termo
+app.get('/talker/search',
+tokenValidation,
+async (req, res) => {
+  const { q } = req.query;
+  const talkers = await getTalkers();
+  const findTalker = talkers.filter((talker) => talker.name.includes(q));
+  return res.status(200).json(findTalker);
+});
+
 // GET /talker retorna todas as pessoas cadastradas
 app.get('/talker', async (req, res) => {
   const talkers = await getTalkers();
