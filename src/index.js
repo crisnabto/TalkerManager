@@ -13,6 +13,7 @@ const { tokenValidation,
   rateValidation } = require('./middlewares/newTalkerValidation');
 const { updateTalkers } = require('./middlewares/updateTalkers');
 const { editTalker } = require('./middlewares/editTalker');
+const { deleteTalker } = require('./middlewares/deleteTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -68,6 +69,12 @@ talkValidation,
 tokenValidation,
 rateValidation,
 editTalker,
+async (_req, _res) => {
+});
+
+app.delete('/talker/:id',
+tokenValidation,
+deleteTalker,
 async (_req, _res) => {
 });
 
