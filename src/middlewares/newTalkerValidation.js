@@ -36,7 +36,7 @@ const watchedAtValid = (talk) => {
 };
 
 const rateNotEmpty = (rate) => {
-  if (!rate) return true;
+  if (!Number.isInteger(rate)) return true;
 };
 
 const rateValid = (rate) => {

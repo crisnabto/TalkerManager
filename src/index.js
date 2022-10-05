@@ -12,6 +12,7 @@ const { tokenValidation,
   talkValidation, 
   rateValidation } = require('./middlewares/newTalkerValidation');
 const { updateTalkers } = require('./middlewares/updateTalkers');
+const { editTalker } = require('./middlewares/editTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -57,6 +58,16 @@ ageValidation,
 talkValidation,
 rateValidation,
 updateTalkers,
+async (_req, _res) => {
+});
+
+app.put('/talker/:id',
+nameValidation,
+ageValidation,
+talkValidation,
+tokenValidation,
+rateValidation,
+editTalker,
 async (_req, _res) => {
 });
 
